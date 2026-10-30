@@ -1,7 +1,7 @@
 // src/app/index.tsx
 import { ScrollView, Text } from 'react-native';
 import MatchCard from '@/components/MatchCard';
-import {matches} from '@/data/games';
+import {matches} from '@/data/matches';
 
 export default function Home() {
   return (
