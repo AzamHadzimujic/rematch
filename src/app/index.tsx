@@ -1,17 +1,17 @@
-import { Text, View, StyleSheet } from "react-native";
+// src/app/index.tsx
+import { ScrollView, Text } from 'react-native';
+import MatchCard from '@/components/MatchCard';
+import {matches} from '@/data/games';
 
-export default function Index() {
+export default function Home() {
   return (
-    <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
-    </View>
+    <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+      <Text style={{ fontSize: 16, fontWeight: '600' }}>
+        {matches.length} matches
+      </Text>
+      {matches.map((match) => (
+        <MatchCard key={match.id} match={match} />
+      ))}
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
