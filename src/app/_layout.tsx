@@ -1,8 +1,21 @@
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useTheme } from '@/hooks/use-theme';
+
 export default function RootLayout() {
-return (
-<Stack>
-<Stack.Screen name="index" options={{ title: 'My hikes' }} />
-</Stack>
-);
+  const theme = useTheme();
+  return (
+    <>
+      <StatusBar style="auto" />
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: theme.background },
+          headerTintColor: theme.text,
+          contentStyle: { backgroundColor: theme.background },
+        }}
+      >
+        <Stack.Screen name="index" options={{ title: 'My matches' }} />
+      </Stack>
+    </>
+  );
 }
