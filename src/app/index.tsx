@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MatchCard from '@/components/MatchCard';
 import { matches } from '@/data/matches';
@@ -19,6 +19,7 @@ function SummaryBox({ value, label }: { value: string; label: string }) {
 
 export default function Home() {
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
 
   // calculated during render, not in state
   const total = matches.length;
@@ -26,6 +27,10 @@ export default function Home() {
   const winRate = total ? Math.round((wins / total) * 100) : 0;
   const totalSeconds = matches.reduce((sum, m) => sum + m.duration, 0);
   const minutes = Math.round(totalSeconds / 60);
+
+  // Task 6: columns depend on the window width
+  const columns = width >= 900 ? 3 : width >= 600 ? 2 : 1;
+  const cardWidth = (width - 2 * Spacing.md - (columns - 1) * Spacing.md) / columns;
 
   return (
     <ScrollView
@@ -41,9 +46,11 @@ export default function Home() {
         <SummaryBox value={`${minutes} min`} label="time played" />
       </View>
 
-      {matches.map((match) => (
-        <MatchCard key={match.id} match={match} />
-      ))}
+      <View style={styles.grid}>
+        {matches.map((match) => (
+          <MatchCard key={match.id} match={match} style={{ width: cardWidth }} />
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -59,4 +66,5 @@ const styles = StyleSheet.create({
   },
   boxValue: { fontSize: FontSize.title, fontWeight: '700' },
   boxLabel: { fontSize: FontSize.small },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md },
 });
