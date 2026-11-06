@@ -6,6 +6,10 @@ Rematch is a personal journal for ranked games and sessions. Players save each m
 npm install
 npx expo start
 
+## Screenshots
+![Home in light mode](docs/home-light.jpg)
+![Home in dark mode](docs/home-dark.jpg)
+
 # Features
 - [x] List of matches (mock data)
 - [ ] Login and registration with Supabase (email/password), so each player sees only their own matches
